@@ -6,6 +6,30 @@ $database = 'bic_db';
 $servername='localhost';
 $mysqli = new mysqli($servername, $username, $password, $database);
 
+function addToQuery($query, $values, $first, $field) {
+	$i = 0;
+	$size = count($values);
+	if ($size == 0) {
+		return $query;
+	}
+	if ($first == 1) {
+		$query .= " WHERE " . $field . " LIKE '%$values[0]%'";
+		if ($size > 1) {
+			$query .= " OR";
+		}
+		$i++;
+	} else {
+		$query .= " AND";
+	}
+	for (;$i < $size; $i++) {
+		$query .= " " . $field . " LIKE '%$values[$i]%'";
+		if ($i != $size-1) {
+			$query .= " OR";
+		}
+	}
+	return $query;
+}
+
 if ($mysqli->connect_error) {
 	die('Connect Error (' .
 	$mysqli->connect_errno . ') '.
@@ -32,51 +56,76 @@ if ($mysqli->connect_error) {
 <script src="index.js"></script>
 <main class="main" role="main">
 <section id="make_search">
-	<div class="search">
+	<div class="filter_menu">
 		<form action="" method="POST">
-			<input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; }?>" class="search_bar" placeholder="Search">
-			<select name="top">
-				<option value="">Top</option>
-				<option value="blanc">blanc</option>
-				<option value="noir">noir</option>
-			</select>
-			<select name="ring">
-				<option value="">Ring</option>
-				<option value="noire">noire</option>
-				<option value="blanche">blanche</option>
-			</select>
-		<button type="submit" class="button">Search</button>
+			<div class="search_bar" placeholder="search">
+				<input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; }?>" class="search_input" placeholder="Search">
+			</div>
+			<div class="filter checkboxes-container">
+				<div class="filter_title" id="topFilter" onclick="toggleValues('topValues')">
+					<span class="filter_name">Top</span>
+				</div>
+				<div class="filters_values" style="display: none;" id="topValues">
+					<div class="filter_value">
+						<label class="filter_attribute">
+							<span class="filter_label">Noir</span>
+							<input id="box1" type="checkbox" name="top[]" value="noir" onchange="submitReq()">
+						</label>
+					</div>
+					<div class="filter_value">
+						<label class="filter_attribute">
+							<span class="filter_label">Blanc</span>
+							<input id="box2" type="checkbox" name="top[]" value="blanc" onchange="submitReq()">
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="filter checkboxes-container">
+				<div class="filter_title" id="ringFilter" onclick="toggleValues('ringValues')">
+					<span class="filter_name">Ring</span>
+				</div>
+				<div class="filters_values" style="display: none;" id="ringValues">
+					<div class="filter_value">
+						<label class="filter_attribute">
+							<span class="filter_label">Noir</span>
+							<input id="box3" type="checkbox" name="ring[]" value="noir" onchange="submitReq()">
+						</label>
+					</div>
+					<div class="filter_value">
+						<label class="filter_attribute">
+							<span class="filter_label">Blanc</span>
+							<input id="box4" type="checkbox" name="ring[]" value="blanc" onchange="submitReq()">
+						</label>
+					</div>
+				</div>
+			</div>
+			<input type="submit" value="Submit request" />
 		</form>
 	</div>
 </section>
 	<div class="main-inner wrapper">
 		<ul class="product-list ul-reset">
 			<?php
-			$andd = 0;
+			$first = 1;
 			$query = "SELECT * FROM pen";
 			if (isset($_POST['top'])) {
-				$top_value = $_POST['top'];
-				$query .= " WHERE top LIKE '%$top_value%'";
-				$andd++;
+				$top_values = $_POST['top'];
+				$query = addToQuery($query, $top_values, $first, "top");
+				$first = 0;
 			}
 			if (isset($_POST['ring'])) {
-				$ring_value = $_POST['ring'];
-				if ($andd == 0) {
-					$query .= " WHERE ring LIKE '%$ring_value%'";
-				} else {
-					$query .= " AND ring LIKE '%$ring_value%'";
-				}
-				$andd++;
+				$ring_values = $_POST['ring'];
+				$query = addToQuery($query, $ring_values, $first, "ring");
+				$first = 0;
 			}
 			if (isset($_POST['search'])) {
 				$search_value = $_POST['search'];
-				if ($andd == 0) {
+				if ($first == 1) {
 					$query .= " WHERE body LIKE '%$search_value%'";
 				} else {
 					$query .= " AND body LIKE '%$search_value%'";
 				}
 			}
-			//echo "<script>alert(\"" . $query . "\")</script>";
 			$result = $mysqli->query($query);
 			$mysqli->close();
 			while($rows = $result->fetch_assoc()) {
@@ -141,7 +190,6 @@ if ($mysqli->connect_error) {
 			</li>
 			<?php
 			}
-			$_POST['search'] = '';
 			?>
 			<!-- /.product-item ib -->
 		</ul>
@@ -159,6 +207,66 @@ if ($mysqli->connect_error) {
 </footer>
 <!-- /.footer -->
 <script>
+<!-- events listenners -->
+
+function toggleValues(id) {
+    var valuesDiv = document.getElementById(id);
+    if (valuesDiv.style.display === "none") {
+        valuesDiv.style.display = "block";
+    } else {
+        valuesDiv.style.display = "none";
+    }
+}
+
+function saveCheckboxState(checkbox) {
+    if (checkbox.checked) {
+        sessionStorage.setItem(checkbox.id, "checked");
+    } else {
+        sessionStorage.removeItem(checkbox.id);
+    }
+}
+
+function submitReq() {
+	document.querySelector("form").submit();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var valuesDivs = document.querySelectorAll('.filters_values');
+    valuesDivs.forEach(function (valuesDiv) {
+        var shouldShowValues = sessionStorage.getItem(valuesDiv.id);
+
+        if (shouldShowValues === "true") {
+            valuesDiv.style.display = "block";
+        }
+
+        var checkboxes = valuesDiv.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            var checkboxState = sessionStorage.getItem(checkbox.id);
+            if (checkboxState === "checked") {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+
+            checkbox.addEventListener("click", function () {
+                submitReq(checkbox);
+            });
+        });
+    });
+});
+
+document.querySelector("form").addEventListener("submit", function () {
+    var valuesDivs = document.querySelectorAll('.filters_values');
+    valuesDivs.forEach(function (valuesDiv) {
+        sessionStorage.setItem(valuesDiv.id, valuesDiv.style.display === "block");
+
+        var checkboxes = valuesDiv.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            saveCheckboxState(checkbox);
+        });
+    });
+});
+
 </script>
 </body>
 </html>

@@ -10,3 +10,4 @@ function productItemHeight(element) {
 $(window).load(function() {
 	productItemHeight(".product-item");
 });
+

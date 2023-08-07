@@ -91,7 +91,21 @@ input[type=submit] {
 	cursor: pointer;
 }
 
+/* filters */
 
+.filter_menu {
+	position: fixed;
+	left: 2%;
+	top: 20%;
+}
+
+.filter_title {
+	background: #CC55EE;
+}
+
+.filter_value {
+	background: #AA88FF;
+}
 
 /* clearfix */
 
@@ -321,7 +335,6 @@ input[type=submit] {
 .footer-inner {
 	font-size: 2em;
 }
-
 
 /* media queries */
 
