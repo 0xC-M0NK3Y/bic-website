@@ -11,10 +11,6 @@ if ($mysqli->connect_error) {
 	$mysqli->connect_errno . ') '.
 	$mysqli->connect_error);
 }
-
-$sql = " SELECT * FROM pen";
-$result = $mysqli->query($sql);
-$mysqli->close();
 ?>
 <html lang="en">
 <head>
@@ -35,10 +31,54 @@ $mysqli->close();
 <body>
 <script src="index.js"></script>
 <main class="main" role="main">
+<section id="make_search">
+	<div class="search">
+		<form action="" method="POST">
+			<input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; }?>" class="search_bar" placeholder="Search">
+			<select name="top">
+				<option value="">Top</option>
+				<option value="blanc">blanc</option>
+				<option value="noir">noir</option>
+			</select>
+			<select name="ring">
+				<option value="">Ring</option>
+				<option value="noire">noire</option>
+				<option value="blanche">blanche</option>
+			</select>
+		<button type="submit" class="button">Search</button>
+		</form>
+	</div>
+</section>
 	<div class="main-inner wrapper">
 		<ul class="product-list ul-reset">
 			<?php
-			$n = 1;
+			$andd = 0;
+			$query = "SELECT * FROM pen";
+			if (isset($_POST['top'])) {
+				$top_value = $_POST['top'];
+				$query .= " WHERE top LIKE '%$top_value%'";
+				$andd++;
+			}
+			if (isset($_POST['ring'])) {
+				$ring_value = $_POST['ring'];
+				if ($andd == 0) {
+					$query .= " WHERE ring LIKE '%$ring_value%'";
+				} else {
+					$query .= " AND ring LIKE '%$ring_value%'";
+				}
+				$andd++;
+			}
+			if (isset($_POST['search'])) {
+				$search_value = $_POST['search'];
+				if ($andd == 0) {
+					$query .= " WHERE body LIKE '%$search_value%'";
+				} else {
+					$query .= " AND body LIKE '%$search_value%'";
+				}
+			}
+			//echo "<script>alert(\"" . $query . "\")</script>";
+			$result = $mysqli->query($query);
+			$mysqli->close();
 			while($rows = $result->fetch_assoc()) {
 				$img = $rows['image'];
 				$stars = $rows['rarity'];
@@ -89,11 +129,11 @@ $mysqli->close();
 						</div>
 						<br><br><br>
 						<?php
+							$n = $rows['id'];
 							echo "<input type='button' value='See more' class='product-item-see-more' ";
 							echo 'onclick="location.href=';
 							echo "'bic/bic_" . $n . ".html'";
 							echo '"/>';
-							$n++;
 						?>
 					</div>
 				</section>
@@ -101,6 +141,7 @@ $mysqli->close();
 			</li>
 			<?php
 			}
+			$_POST['search'] = '';
 			?>
 			<!-- /.product-item ib -->
 		</ul>
@@ -117,5 +158,7 @@ $mysqli->close();
 	<!-- /.footer-inner wrapper -->
 </footer>
 <!-- /.footer -->
+<script>
+</script>
 </body>
 </html>
