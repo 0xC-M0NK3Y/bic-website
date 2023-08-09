@@ -15,11 +15,18 @@ HTML_TEMPLATE = \
 '			</div>' \
 '			<!-- /.product-item-image -->' \
 '			<h1 class="product-item-title">' \
-'				Tag: %s' \
+'				Nom: %s' \
 '			</h1>' \
 '			<!-- /.product-item-title -->' \
 '			<div class="product-item-infos">' \
-'				Body: %s<br>Tube color: %s<br>Tube finition: %s<br>Ring: %s<br>Top: %s<br>Colors: %s<br>Thick: %s<br>Price: %s€<br>Rarity: %s' \
+'				Couleur du tube: %s<br>' \
+'				Finition du tube: %s<br>' \
+'				Couleur de l\'anneau: %s<br>' \
+'				Haut: %s<br>' \
+'				Couleur des ancres: %s<br>' \
+'				Epaisseur: %s<br>' \
+'				Prix: %s€<br>' \
+'				Rareté: %s' \
 '			</div>' \
 '			<div class="product-item-lower">' \
 '				<div class="product-item-short-description">' \
@@ -74,7 +81,7 @@ def main():
 		imgpath = "../" + data[3].decode()
 		for j in range(data[11]):
 			stars += "⭐"
-		out.write(HTML_TEMPLATE % (imgpath, data[1], data[2], data[4], data[5], data[6], data[7], data[8], data[9], str(data[10]), stars, data[12]))
+		out.write(HTML_TEMPLATE % (imgpath, data[2], data[4], data[5], data[6], data[7], data[8], data[9], str(data[10]), stars, data[12]))
 		out.close()
 
 

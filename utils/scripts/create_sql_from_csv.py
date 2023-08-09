@@ -1,5 +1,10 @@
 import sys
 
+#édition limitée|033 Wonder Mums (annnddd relax)|images/bic_1275.png|blanc|décoré|blanche|blanc|rouge, noir, vert, bleu|1mm|3|3|per txt|
+#édition limitée|033 Wonder Mums (take a break)|images/bic_1276.png|blanc|décoré|blanche|blanc|rouge, noir, vert, bleu|1mm|3|3|per txt|
+#édition limitée|033 Wonder Mums (find your zen)|images/bic_1277.png|blanc|décoré|blanche|blanc|rouge, noir, vert, bleu|1mm|3|3|per txt|
+#édition limitée    |033 Wonder Mums (stay strong)     |images/bic_1278.png    |blanc      |décoré      |blanche      |blanc       |rouge, noir, vert, bleu      |1mm    |3    |3    |per txt|
+
 def escape_chars(line):
 	for i in range(len(line)):
 		j = 0
@@ -22,18 +27,17 @@ def main():
 
 	for i in range(len(buf)):
 		line = buf[i].split('|')
-		if len(line) != 11:
+		if len(line) != 13:
 			print(f'Bad line at {i+1} : len = {len(line)}', file=sys.stderr)
 			continue
+		if (line[9] == 'None'):
+			line[9] = '0.0'
 		escape_chars(line)
-		if line[8] == 'None':
-			line[8] = '0.0'
-		print("INSERT INTO `pen`(tag,body,image,tube_color,tube_finition, " \
-									"ring,top,colors,thick,price,rarity)" \
+		print("INSERT INTO `pen`(family,name,image,tube_color,tube_finish, " \
+									"ring_color,top,ink_colors,thickness,price,rarity,tag)" \
 				" VALUES " \
-				f"('{line[0]}','{line[1]}','{line[2]}','{line[3]}','{line[4]}'," \
-				f"'{line[5]}','{line[6]}','{line[7]}','{line[8]}','{line[9]}'," \
-				f"'1');", file=out)
+				f"('{line[0]}' , '{line[1]}' , '{line[2]}' , '{line[3]}' , '{line[4]}' , " \
+				f"'{line[5]}' , '{line[6]}' , '{line[7]}' , '{line[8]}' , '{line[9]}' , '{line[10]}' , '{line[11]}');", file=out)
 
 
 if __name__ == '__main__':
