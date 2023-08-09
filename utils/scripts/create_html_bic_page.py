@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+import os
 
 HTML_TEMPLATE = \
 '<html lang="en">' \
@@ -49,7 +50,6 @@ def create_database_connection(hostname, username, password, db):
 			user=username,
 			passwd=password,
 			database=db)
-		print("Connected to database")
 	except Error as err:
 		print(f"Error connecting to database: '{err}'")
 	return connection
@@ -71,8 +71,8 @@ def main():
 	if db_conn == None:
 		return
 	number = int(sql_query(db_conn, 'SELECT COUNT(id) FROM `pen`;')[0][0])
-	print(f'number = {number}')
 
+	os.mkdir("bic")
 	for i in range(number):
 		data = sql_query(db_conn, f'SELECT * FROM `pen` WHERE id={i+1};')
 		data = data[0]

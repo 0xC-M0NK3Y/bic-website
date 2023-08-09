@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]
+then
+	echo "Il faut faire: $ update_bic_website fichier.xlsx"
+	exit 1
+fi
+
+echo "Creation de la base de donnée"
+python3 /home/gillian/bic-website/utils/scripts/create_csv_from_excel.py $1 out.csv
+python3 /home/gillian/bic-website/utils/scripts/create_sql_from_csv.py out.csv out.sql
+rm -rf out.csv
+mariadb --user=bic_user --password=bic_user --host=localhost < /home/gillian/bic-website/utils/bic.sql
+mariadb --user=bic_user --password=bic_user --host=localhost --database=bic_db < out.sql
+rm -rf out.sql
+echo "Creation du site"
+rm -rf /home/groume/images
+cp -r images /home/groume/
+rm -rf images
+python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php
+cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > /home/groume/index.php
+echo "Creation des pages individuelles"
+python3 /home/gillian/bic-website/utils/scripts/create_html_bic_page.py
+rm -rf /home/groume/bic
+cp -r bic /home/groume
+rm -rf bic
+cp /home/gillian/bic-website/index.css /home/groume
+cp /home/gillian/bic-website/index.js /home/groume
+echo "Voilà le site devrait être actualisé correctement si tu vois pas d'erreurs"

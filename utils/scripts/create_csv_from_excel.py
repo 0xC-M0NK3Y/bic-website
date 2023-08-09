@@ -32,11 +32,13 @@ def main():
 
 	out = open(sys.argv[2], 'w')
 
+	os.mkdir('images')
+
 	for row in range(2, sheet.max_row):
 
 		# detect end with empty colors cell
 		if sheet[row+1][3].value == None:
-			print(f'end at row {row+1} : {sheet[row+1][3].value} : {sheet[1][3].value}', file=sys.stderr)
+			print(f'Fin du fichier excel détectée ligne {row+1}.', file=sys.stderr)
 			break
 
 		# save image
@@ -45,7 +47,8 @@ def main():
 			path = f'images/bic_{row-2}.png'
 			image.save(path)
 		except:
-			print(f'error saving image row {row+1}', file=sys.stderr)
+			print(f'Erreur avec l\'image ligne {row+1} (la ligne sera pas prise en compte)', file=sys.stderr)
+			continue
 
 		# print csv line
 		for col in sheet.iter_cols(1, sheet.max_column):
@@ -59,7 +62,6 @@ def main():
 				else:
 					print(col[row].value, end='|', file=out)
 		print('', file=out)
-	print('rotating images...')
 	rotate_images('images')
 
 
