@@ -31,7 +31,7 @@ def main():
 			print(f'Bad line at {i+1} : len = {len(line)}', file=sys.stderr)
 			continue
 		if (line[9] == 'None'):
-			line[9] = '0.0'
+			line[9] = '0'
 		escape_chars(line)
 		print("INSERT INTO `pen`(family,name,image,tube_color,tube_finish, " \
 									"ring_color,top,ink_colors,thickness,price,rarity,tag)" \

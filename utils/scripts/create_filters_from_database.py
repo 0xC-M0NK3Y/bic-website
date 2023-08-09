@@ -11,7 +11,6 @@ def create_database_connection(hostname, username, password, db):
 			user=username,
 			passwd=password,
 			database=db)
-		print("Connected to database")
 	except Error as err:
 		print(f"Error connecting to database: '{err}'")
 	return connection
@@ -38,12 +37,13 @@ def make_filter(data, field, index, filter_name):
 	ban_vals = []
 	for i in range(len(data)):
 		if data[i][index] not in vals and data[i][index] not in ban_vals:
-			print(f"Ajouter valeur {data[i][index]} ? [O/N] : ")
+			print(f"Ajouter valeur {data[i][index]} ? [O/N] : ", end='')
 			r = read_resp()
 			if r == 'o' or r == 'O':
 				vals.append(data[i][index])
 			else:
 				ban_vals.append(data[i][index])
+	vals.sort()
 	filter_values = make_filters_values(vals, field)
 	ret = FILTER_MENU_BASE % (field, field, filter_name, field, field, field, \
 								field, field, field, field, filter_values)
@@ -71,42 +71,35 @@ def main():
 
 	print("Creation des filtres")
 
-	print("\nAjout du filtre famille ? [O/N] : ")
+	print("\nAjout du filtre famille ? [O/N] : ", end='')
 	r = read_resp()
 	if r == 'o' or r == 'O':
 		print(make_filter(data, "family", 1, "Famille"), file=out)
 
-	print("\nAjout du filtre couleur du tube ? [O/N] : ")
+	print("\nAjout du filtre couleur du tube ? [O/N] : ", end='')
 	r = read_resp()
 	if r == 'o' or r == 'O':
 		print(make_filter(data, "tube_color", 4, "Couleur du tube"), file=out)
 
-	print("\nAjout du filtre couleur du haut ? [O/N] : ")
+	print("\nAjout du filtre couleur du haut ? [O/N] : ", end='')
 	r = read_resp()
 	if r == 'o' or r == 'O':
-	print(make_filter(data, "top", 7, "Couleur du haut"), file=out)
+		print(make_filter(data, "top", 7, "Couleur du haut"), file=out)
 
-	print("\nAjout du filtre couleur de l'anneau ? [O/N] : ")
+	print("\nAjout du filtre couleur de l'anneau ? [O/N] : ", end='')
 	r = read_resp()
 	if r == 'o' or r == 'O':
 		print(make_filter(data, "ring_color", 6, "Couleur de l'anneau"), file=out)
 
-	print("\nAjout du filtre couleur de l'encre ? [O/N] : ")
+	print("\nAjout du filtre couleur de l'encre ? [O/N] : ", end='')
 	r = read_resp()
 	if r == 'o' or r == 'O':
 		print(make_filter(data, "ink_colors", 8, "Couleur de l'encre"), file=out)
 
-	print("\nAjout du filtre rareté ? [O/N] : ")
+	print("\nAjout du filtre rareté ? [O/N] : ", end='')
 	r = read_resp()
 	if r == 'o' or r == 'O':
 		print(make_filter(data, "rarity", 11, "Rareté"), file=out)
-
-	print("\nAjout du filtre prix ? [O/N] : ")
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "price", 10, "Prix"), file=out)
-	print('Creation des filtres finie')
-
 
 if __name__ == '__main__':
 	main()

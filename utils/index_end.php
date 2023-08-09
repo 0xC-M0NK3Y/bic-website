@@ -26,9 +26,6 @@
 			if (isset($_GET['rarity'])) {
 				$query = addToQuery($query, $_GET['rarity'], $first, "rarity");
 				$first = 0;	}
-			if (isset($_GET['price'])) {
-				$query = addToQuery($query, $_GET['price'], $first, "price");
-				$first = 0;	}
 
 			if (isset($_GET['search'])) {
 				$search_value = $_GET['search'];
