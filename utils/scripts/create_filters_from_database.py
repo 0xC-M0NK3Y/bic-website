@@ -32,22 +32,44 @@ def make_filters_values(values, field_name):
 		ret += FILTER_VALUE_BASE % (values[i], field_name, values[i], field_name, values[i], field_name)
 	return ret
 
-def make_filter(data, field, index, filter_name):
+def make_filter(data, field, index, filter_name, auto):
 	vals = []
 	ban_vals = []
 	for i in range(len(data)):
-		if data[i][index] not in vals and data[i][index] not in ban_vals:
-			print(f"Ajouter valeur {data[i][index]} ? [O/N] : ", end='')
-			r = read_resp()
-			if r == 'o' or r == 'O':
-				vals.append(data[i][index])
+		tmp = str(data[i][index])
+		tmp = tmp.replace("'", '_')
+		tmp = tmp.replace('"', '_')
+		tmp = tmp.replace('(', '_')
+		tmp = tmp.replace(')', '_')
+		if tmp not in vals and tmp not in ban_vals:
+			if auto == False:
+				print(f"Ajouter valeur {data[i][index]} ? [O/N] : ", end='')
+				r = read_resp()
+				if r == 'o' or r == 'O':
+					vals.append(tmp)
+				else:
+					ban_vals.append(tmp)
 			else:
-				ban_vals.append(data[i][index])
-	vals.sort()
+				vals.append(tmp)
+				print(f"Ajout de la valeur {data[i][index]}")
+	if field != "family":
+		vals.sort()
 	filter_values = make_filters_values(vals, field)
 	ret = FILTER_MENU_BASE % (field, field, filter_name, field, field, field, \
 								field, field, field, field, filter_values)
 	return ret
+
+def make_ink_colors_filter():
+	filter_values = ""
+	filter_values += FILTER_VALUE_BASE % ("classique", "ink_colors", "rouge, noir, vert, bleu", "ink_colors", "rouge, noir, vert, bleu", "ink_colors")
+	filter_values += FILTER_VALUE_BASE % ("fun", "ink_colors", "rose, violet, vert citron, turquoise", "ink_colors", "rose, violet, vert citron, turquoise", "ink_colors")
+	filter_values += FILTER_VALUE_BASE % ("sun", "ink_colors", "rose, violet, orange, jaune", "ink_colors", "rose, violet, orange, jaune", "ink_colors")
+	filter_values += FILTER_VALUE_BASE % ("autres", "ink_colors", "other_ink_colors", "ink_colors", "other_ink_colors", "ink_colors")
+
+	ret = FILTER_MENU_BASE % ("ink_colors", "ink_colors", "Encres", "ink_colors", "ink_colors", "ink_colors", \
+								"ink_colors", "ink_colors", "ink_colors", "ink_colors", filter_values)
+	return ret
+
 
 def read_resp():
 	r = input()
@@ -58,8 +80,8 @@ def read_resp():
 
 def main():
 
-	if len(sys.argv) != 2:
-		print(f'Usage: {sys.argv[0]} <filename.php>')
+	if len(sys.argv) != 3:
+		print(f'Usage: {sys.argv[0]} <filename.php> <auto:yes/no>')
 		exit()
 
 	db_conn = create_database_connection('localhost', 'bic_user', 'bic_user', 'bic_db')
@@ -67,39 +89,74 @@ def main():
 		return
 	data = sql_query(db_conn, f'SELECT * FROM `pen`;')
 
+	auto = False
 	out = open(sys.argv[1], 'w')
+
+	if sys.argv[2] == "yes":
+		auto = True
 
 	print("Creation des filtres")
 
-	print("\nAjout du filtre famille ? [O/N] : ", end='')
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "family", 1, "Famille"), file=out)
+	if auto == False:
+		print("Ajouter tout les filtres automatiquement ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			auto = True
 
-	print("\nAjout du filtre couleur du tube ? [O/N] : ", end='')
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "tube_color", 4, "Couleur du tube"), file=out)
+	if auto == False:
+		print("\nAjout du filtre famille ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_filter(data, "family", 1, "Famille", auto), file=out)
+	else:
+		print("\nAjout du filtre famille")
+		print(make_filter(data, "family", 1, "Famille", auto), file=out)
 
-	print("\nAjout du filtre couleur du haut ? [O/N] : ", end='')
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "top", 7, "Couleur du haut"), file=out)
+	if auto == False:
+		print("\nAjout du filtre couleur du tube ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_filter(data, "tube_color", 4, "Tube", auto), file=out)
+	else:
+		print("\nAjout du filtre couleur du tube")
+		print(make_filter(data, "tube_color", 4, "Tube", auto), file=out)
 
-	print("\nAjout du filtre couleur de l'anneau ? [O/N] : ", end='')
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "ring_color", 6, "Couleur de l'anneau"), file=out)
 
-	print("\nAjout du filtre couleur de l'encre ? [O/N] : ", end='')
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "ink_colors", 8, "Couleur de l'encre"), file=out)
+	if auto == False:
+		print("\nAjout du filtre couleur du haut ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_filter(data, "top", 7, "Haut", auto), file=out)
+	else:
+		print("\nAjout du filtre couleur du haut")
+		print(make_filter(data, "top", 7, "Haut", auto), file=out)
 
-	print("\nAjout du filtre rareté ? [O/N] : ", end='')
-	r = read_resp()
-	if r == 'o' or r == 'O':
-		print(make_filter(data, "rarity", 11, "Rareté"), file=out)
+	if auto == False:
+		print("\nAjout du filtre couleur de la bague ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_filter(data, "ring_color", 6, "Bague", auto), file=out)
+	else:
+		print("\nAjout du filtre couleur de la bague")
+		print(make_filter(data, "ring_color", 6, "Bague", auto), file=out)
+
+	if auto == False:
+		print("\nAjout du filtre couleur de l'encre ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_ink_colors_filter(), file=out)
+	else:
+		print("\nAjout du filtre couleur de l'encre")
+		print(make_ink_colors_filter(), file=out)
+
+	if auto == False:
+		print("\nAjout du filtre rareté ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_filter(data, "rarity", 11, "Rareté", auto), file=out)
+	else:
+		print("\nAjout du filtre rareté")
+		print(make_filter(data, "rarity", 11, "Rareté", auto), file=out)
 
 if __name__ == '__main__':
 	main()

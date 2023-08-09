@@ -18,5 +18,5 @@ CREATE TABLE `pen` (
 	`rarity`			TINYINT UNSIGNED	NOT NULL,
 	`tag`				VARCHAR(255)		NOT NULL,
 
-	`comments`			TEXT
+	`comments`			VARCHAR(512)
 );

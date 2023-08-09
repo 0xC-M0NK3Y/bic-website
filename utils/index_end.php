@@ -1,4 +1,3 @@
-			<input type="submit" value="Submit request" />
 		</form>
 	</div>
 </section>
@@ -38,57 +37,45 @@
 			$result = $mysqli->query($query);
 			$mysqli->close();
 			while($rows = $result->fetch_assoc()) {
+				$id = $rows['id'];
 				$img = $rows['image'];
 				$stars = $rows['rarity'];
+				$price = $rows['price'];
+				if ($price == 0) {
+					$price = "Indéterminé";
+				} else {
+					$price .= " €";
+				}
 			?>
+			<a href="<?php echo 'bic/bic_' . $id . '.html' ?>">
 			<li class="product-item ib">
 				<section class="product-item-inner">
 					<div class="product-item-image">
 					<?php
-						echo "<img width='50' height='350' src='$img'></img>";
+						echo "<img height='350' src='$img'></img>";
 					?>
 					</div>
 					<!-- /.product-item-image -->
 					<h1 class="product-item-title">
 					<?php
-						echo 'Nom: ' . $rows['name'];
+						echo $rows['name'];
 					?>
         				</h1>
 					<!-- /.product-item-title -->
 					<div class="product-item-infos">
 						<?php
-							echo 'Couleur du tube: ' . $rows['tube_color'];
+							echo 'Prix: ' . $price;
 						?><br><?php
-							echo 'Haut: ' . $rows['top'];
-						?><br><?php
-							echo 'Couleur des ancres: ' . $rows['ink_colors'];
-						?><br><?php
-							echo 'Price: ' . $rows['price'] . '€';
-						?><br><?php
-							echo 'Rarity: ';
+							echo 'Rareté: ';
 							for ($i = 0; $i < $stars; $i++) {
 								echo '⭐';
 							}
 						?>
 					</div><br><br>
-					<div class="product-item-lower">
-						<div class="product-item-short-description">
-							<?php
-								echo $rows['comments'];
-							?>
-						</div>
-						<br><br><br>
-						<?php
-							$n = $rows['id'];
-							echo "<input type='button' value='See more' class='product-item-see-more' ";
-							echo 'onclick="location.href=';
-							echo "'bic/bic_" . $n . ".html'";
-							echo '"/>';
-						?>
-					</div>
 				</section>
 				<!-- /.product-item-inner -->
 			</li>
+			</a>
 			<?php
 			}
 			?>

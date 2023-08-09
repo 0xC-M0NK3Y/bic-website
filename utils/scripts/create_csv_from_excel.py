@@ -37,13 +37,13 @@ def main():
 	for row in range(2, sheet.max_row):
 
 		# detect end with empty colors cell
-		if sheet[row+1][3].value == None:
+		if sheet[row+1][4].value == None:
 			print(f'Fin du fichier excel détectée ligne {row+1}.', file=sys.stderr)
 			break
 
 		# save image
 		try:
-			image = image_loader.get(f'C{row+1}')
+			image = image_loader.get(f'D{row+1}')
 			path = f'images/bic_{row-2}.png'
 			image.save(path)
 		except:

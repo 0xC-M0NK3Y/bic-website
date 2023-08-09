@@ -27,17 +27,18 @@ def main():
 
 	for i in range(len(buf)):
 		line = buf[i].split('|')
-		if len(line) != 13:
+		if len(line) != 14:
 			print(f'Bad line at {i+1} : len = {len(line)}', file=sys.stderr)
 			continue
 		if (line[9] == 'None'):
 			line[9] = '0'
 		escape_chars(line)
 		print("INSERT INTO `pen`(family,name,image,tube_color,tube_finish, " \
-									"ring_color,top,ink_colors,thickness,price,rarity,tag)" \
+									"ring_color,top,ink_colors,thickness,price,rarity,tag,comments)" \
 				" VALUES " \
 				f"('{line[0]}' , '{line[1]}' , '{line[2]}' , '{line[3]}' , '{line[4]}' , " \
-				f"'{line[5]}' , '{line[6]}' , '{line[7]}' , '{line[8]}' , '{line[9]}' , '{line[10]}' , '{line[11]}');", file=out)
+				f"'{line[5]}' , '{line[6]}' , '{line[7]}' , '{line[8]}' , '{line[9]}' , '{line[10]}' ," \
+				f" '{line[11]}' , '{line[12]}');", file=out)
 
 
 if __name__ == '__main__':

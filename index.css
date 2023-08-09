@@ -20,10 +20,10 @@ html {
 
 body {
 	margin: 0;
-	background-color: #696969;
+	background-color: #0000FF; /*general_background*/
 	line-height: 1.5;
 	font-family: Helvectica, Arial, sans-serif;
-	color: #333;
+	color: #FF00FF; /*title_color*/
 }
 
 
@@ -96,15 +96,20 @@ input[type=submit] {
 .filter_menu {
 	position: fixed;
 	left: 2%;
-	top: 20%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 700px;
+	width: 200px;
+	color: #FFFFFF; /*filter_menu_text*/
 }
 
 .filter_title {
-	background: #CC55EE;
+	background: #2e1c0b; /*filter_title_background*/
 }
 
 .filter_value {
-	background: #AA88FF;
+	background: #cc7e35; /*filter_value_background*/
+	margin-left: 10px;
 }
 
 /* clearfix */
@@ -211,8 +216,9 @@ input[type=submit] {
 }
 
 .main-inner {
+	position: relative;
 	margin-top: 40px;
-	background-color: #1a1c1a;
+	background-color: #FF0000; /*product_list_background*/
 }
 
 
@@ -221,7 +227,7 @@ input[type=submit] {
 .product-list {
 	padding-bottom: 10px;
 	font-size: 0;
-	background-color: #1a1c1a;
+	background-color: #FF0000; /*product_list_background*/
 }
 
 .product-item-solo {
@@ -232,38 +238,27 @@ input[type=submit] {
 	margin-top: 10%;
 	font-size: 1rem;
 	color: #20ffa9;
-	background-color: #262e26;
+	background-color: #FFFFFF; /*product_item_background*/
 }
 
 .product-item {
 	position: relative;
 	width: 250px;
-	height: 500px;
+	height: 370px;
+	left: 7px;
 	margin-top: 10px;
-	margin-left: 20px;
+	margin-right: 16px;
 	font-size: 1rem;
-	color: #20ffa9;
-	background-color: #262e26;
+	color: #0e148a; /*product_item_text*/
+	background-color: #FFFFFF; /*product_item_background*/
 }
 
 .product-item-inner {
 	padding: 10px;
 }
 
-.product-item:hover .product-item-inner {
-	position: absolute;
-	z-index: 2;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
-	background-color: #202020;
-}
-
-.product-item:hover .product-item-lower {
-	display: block;
-	background-color: #202020;
-}
-
-.product-item:nth-child(4n+1) {
-	margin-left: 0;
+.product-item:hover {
+	background-color: #202020; /*product_item_background_hover*/
 }
 
 .product-item-image {
@@ -279,9 +274,11 @@ input[type=submit] {
 .product-item-title {
 	horizontal-align: left;
 	vertical-align: top;
-	margin-left: 90px;
+	margin-left: 25%;
 	margin-top: 5px;
 	font-size: 1em;
+	text-align: center;
+	border: solid;
 }
 
 .product-item-infos {
@@ -300,19 +297,6 @@ input[type=submit] {
 	margin-bottom: 10px;
 	margin-left: 55px;
 }
-
-.product-item-see-more {
-	width: 100%;
-	padding: 10px;
-	border: none;
-	background-color: #55dc8b;
-	color: white;
-}
-
-.product-item-see-more:hover {
-	opacity: .75;
-}
-
 
 .product-item:before {
     content: " ";

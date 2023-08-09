@@ -17,7 +17,7 @@ echo "Creation du site"
 rm -rf /home/groume/images
 cp -r images /home/groume/
 rm -rf images
-python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php
+python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php yes
 rm -rf /home/groume/index.php
 cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > /home/groume/index.php
 rm -rf filters.php
@@ -26,8 +26,7 @@ python3 /home/gillian/bic-website/utils/scripts/create_html_bic_page.py
 rm -rf /home/groume/bic
 cp -r bic /home/groume
 rm -rf bic
-rm -rf /home/groume/index.css
-cp /home/gillian/bic-website/index.css /home/groume
+/home/gillian/bic-website/update_colors
 rm -rf /home/groume/index.js
 cp /home/gillian/bic-website/index.js /home/groume
 echo "Voilà le site devrait être actualisé correctement si tu vois pas d'erreurs"
