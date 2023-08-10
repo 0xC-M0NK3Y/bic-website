@@ -2,24 +2,23 @@
 
 echo "Mise à jour des couleurs"
 
-xmv /home/gillian/couleurs.txt /home/gillian/bic-website/colors
+mv /home/gillian/couleurs.txt /home/gillian/bic-website/colors
 
 general_background_color=$(grep "couleur du fond general" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
-
-product_list_background_color=$(grep "couleur du fond liste de bic" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
-product_background_color=$(grep "couleur du fond bic seul" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
 
 filter_title_background_color=$(grep "couleur filtre titre fond" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
 filter_value_background_color=$(grep "couleur filtre valeurs fond" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
 
+product_background_color=$(grep "couleur du fond bic seul" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
+
 title_color=$(grep "couleur du titre" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
 
 product_item_text_color=$(grep "couleur du texte des produits" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
-filter_text_color=$(grep "couleur du text des filtres" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
+#filter_text_color=$(grep "couleur du text des filtres" /home/gillian/bic-website/colors | cut -d ':' -f 2 | cut -c -7)
 
 sed -i "s/background-color: #[[:alnum:]]*; \/\*general_background\*\//background-color: $general_background_color; \/\*general_background\*\//g" /home/gillian/bic-website/index.css
 
-sed -i "s/background-color: #[[:alnum:]]*; \/\*product_list_background\*\//background-color: $product_list_background_color; \/\*product_list_background\*\//g" /home/gillian/bic-website/index.css
+sed -i "s/background-color: #[[:alnum:]]*; \/\*product_list_background\*\//background-color: $general_background_color; \/\*product_list_background\*\//g" /home/gillian/bic-website/index.css
 sed -i "s/background-color: #[[:alnum:]]*; \/\*product_item_background\*\//background-color: $product_background_color; \/\*product_item_background\*\//g" /home/gillian/bic-website/index.css
 
 sed -i "s/background: #[[:alnum:]]*; \/\*filter_title_background\*\//background: $filter_title_background_color; \/\*filter_title_background\*\//g" /home/gillian/bic-website/index.css
@@ -28,7 +27,7 @@ sed -i "s/background: #[[:alnum:]]*; \/\*filter_value_background\*\//background:
 sed -i "s/color: #[[:alnum:]]*; \/\*title_color\*\//color: $title_color; \/\*title_color\*\//g" /home/gillian/bic-website/index.css
 
 sed -i "s/color: #[[:alnum:]]*; \/\*product_item_text\*\//color: $product_item_text_color; \/\*product_item_text\*\//g" /home/gillian/bic-website/index.css
-sed -i "s/color: #[[:alnum:]]*; \/\*filter_menu_text\*\//color: $filter_text_color; \/\*filter_menu_text\*\//g" /home/gillian/bic-website/index.css
+#sed -i "s/color: #[[:alnum:]]*; \/\*filter_menu_text\*\//color: $filter_text_color; \/\*filter_menu_text\*\//g" /home/gillian/bic-website/index.css
 
 rm -rf /home/groume/index.css
 cp /home/gillian/bic-website/index.css /home/groume

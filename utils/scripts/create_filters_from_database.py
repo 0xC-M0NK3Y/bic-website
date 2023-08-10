@@ -29,7 +29,10 @@ def sql_query(connection, query):
 def make_filters_values(values, field_name):
 	ret = ""
 	for i in range(len(values)):
-		ret += FILTER_VALUE_BASE % (values[i], field_name, values[i], field_name, values[i], field_name)
+		tmp = values[i]
+		if '_' in tmp:
+			tmp = tmp.replace('_', "'")
+		ret += FILTER_VALUE_BASE % (tmp, field_name, values[i], field_name, values[i], field_name)
 	return ret
 
 def make_filter(data, field, index, filter_name, auto):
@@ -55,7 +58,7 @@ def make_filter(data, field, index, filter_name, auto):
 	if field != "family":
 		vals.sort()
 	filter_values = make_filters_values(vals, field)
-	ret = FILTER_MENU_BASE % (field, field, filter_name, field, field, field, \
+	ret = FILTER_MENU_BASE % (field, field, field+"_span", filter_name, field, field, field, \
 								field, field, field, field, filter_values)
 	return ret
 
@@ -66,8 +69,24 @@ def make_ink_colors_filter():
 	filter_values += FILTER_VALUE_BASE % ("sun", "ink_colors", "rose, violet, orange, jaune", "ink_colors", "rose, violet, orange, jaune", "ink_colors")
 	filter_values += FILTER_VALUE_BASE % ("autres", "ink_colors", "other_ink_colors", "ink_colors", "other_ink_colors", "ink_colors")
 
-	ret = FILTER_MENU_BASE % ("ink_colors", "ink_colors", "Encres", "ink_colors", "ink_colors", "ink_colors", \
+	ret = FILTER_MENU_BASE % ("ink_colors", "ink_colors", "ink_colors_span", "Encres", "ink_colors", "ink_colors", "ink_colors", \
 								"ink_colors", "ink_colors", "ink_colors", "ink_colors", filter_values)
+	return ret
+
+def make_tag_filter():
+	filter_values = ""
+	filter_values += FILTER_VALUE_BASE % ("uni", "tag", "uni", "tag", "uni", "tag")
+	filter_values += FILTER_VALUE_BASE % ("avec texte", "tag", "txt", "tag", "txt", "tag")
+	filter_values += FILTER_VALUE_BASE % ("animaux", "tag", "ani", "tag", "ani", "tag")
+	filter_values += FILTER_VALUE_BASE % ("fleurs", "tag", "fle", "tag", "fle", "tag")
+	filter_values += FILTER_VALUE_BASE % ("graphique", "tag", "gra", "tag", "gra", "tag")
+	filter_values += FILTER_VALUE_BASE % ("oeuvre d'art", "tag", "oeu", "tag", "oeu", "tag")
+	filter_values += FILTER_VALUE_BASE % ("personnage", "tag", "per", "tag", "per", "tag")
+	filter_values += FILTER_VALUE_BASE % ("sport", "tag", "spo", "tag", "spo", "tag")
+	filter_values += FILTER_VALUE_BASE % ("ville ou région", "tag", "vil", "tag", "vil", "tag")
+
+	ret = FILTER_MENU_BASE % ("tag", "tag", "tag_span", "Style", "tag", "tag", "tag", \
+								"tag", "tag", "tag", "tag", filter_values)
 	return ret
 
 
@@ -121,6 +140,14 @@ def main():
 		print("\nAjout du filtre couleur du tube")
 		print(make_filter(data, "tube_color", 4, "Tube", auto), file=out)
 
+	if auto == False:
+		print("\nAjout du filtre finition du tube ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_filter(data, "tube_finish", 5, "Tube finition", auto), file=out)
+	else:
+		print("\nAjout du filtre finition du tube")
+		print(make_filter(data, "tube_finish", 5, "Tube finition", auto), file=out)
 
 	if auto == False:
 		print("\nAjout du filtre couleur du haut ? [O/N] : ", end='')
@@ -148,6 +175,15 @@ def main():
 	else:
 		print("\nAjout du filtre couleur de l'encre")
 		print(make_ink_colors_filter(), file=out)
+
+	if auto == False:
+		print("\nAjout du filtre tag ? [O/N] : ", end='')
+		r = read_resp()
+		if r == 'o' or r == 'O':
+			print(make_tag_filter(), file=out)
+	else:
+		print("\nAjout du filtre tag")
+		print(make_tag_filter(), file=out)
 
 	if auto == False:
 		print("\nAjout du filtre rareté ? [O/N] : ", end='')

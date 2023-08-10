@@ -4,6 +4,9 @@ import sys
 import os
 import cv2
 
+MAX_HEIGHT = 350
+MAX_WIDTH = 55
+
 def rotate_images(path):
 	for filename in os.listdir(path):
 		f = os.path.join(path, filename)
@@ -11,9 +14,12 @@ def rotate_images(path):
 			try:
 				img = cv2.imread(f, cv2.IMREAD_UNCHANGED)
 				img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
-				cv2.imwrite(f, img)
+				h, w, _ = img.shape
+				coef = min(MAX_HEIGHT/h, MAX_WIDTH/w)
+				img2 = cv2.resize(img, (int(w*coef), int(h*coef)))
+				cv2.imwrite(f, img2)
 			except:
-				print(f'Error rotating {f}')
+				print(f'Error rotating and resizing {f}')
 
 def main():
 

@@ -1,3 +1,4 @@
 *.html
 *.png
 *.xlsx
+utils/scripts/__pycache__

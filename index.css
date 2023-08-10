@@ -20,10 +20,10 @@ html {
 
 body {
 	margin: 0;
-	background-color: #0000FF; /*general_background*/
+	background-color: #0071ff; /*general_background*/
 	line-height: 1.5;
 	font-family: Helvectica, Arial, sans-serif;
-	color: #FF00FF; /*title_color*/
+	color: #FF8e00; /*title_color*/
 }
 
 
@@ -85,31 +85,53 @@ input {
 	font-weight: inherit;
 	font-size: inherit;
 	color: inherit;
+	border-radius: 5px;
 }
 
 input[type=submit] {
 	cursor: pointer;
 }
 
+.total_count {
+	left: 50px;
+	top: 50px;
+	position: fixed;
+	font-size: 1.2em;
+	font-weight: bolder;
+}
+
 /* filters */
 
 .filter_menu {
 	position: fixed;
-	left: 2%;
-	overflow-x: hidden;
-	overflow-y: auto;
-	height: 700px;
+	left: 15px;
 	width: 200px;
-	color: #FFFFFF; /*filter_menu_text*/
+	color: #00FFFF; /*filter_menu_text*/
+	padding-left: 5px;
+	margin-bottom: 20px;
+	overflow: auto;
+	/*max-height: -webkit-fill-available;*/
+	max-height: 80%;
+}
+
+.search_bar {
+	margin-right: 10px;
+	
 }
 
 .filter_title {
-	background: #2e1c0b; /*filter_title_background*/
+	background: #378A0E; /*filter_title_background*/
+	padding-left: 10px;
+	margin-top: 3px;
+	border-radius: 4px;
 }
 
 .filter_value {
-	background: #cc7e35; /*filter_value_background*/
+	background: #13250A; /*filter_value_background*/
 	margin-left: 10px;
+	margin-bottom: 1px;
+	padding-left: 10px;
+	border-radius: 5px;
 }
 
 /* clearfix */
@@ -194,17 +216,6 @@ input[type=submit] {
 
 /* global classes */
 
-
-/* wrapper */
-
-.wrapper {
-	width: 1024px;
-	padding-right: 10px;
-	padding-left: 10px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
 /* title */
 .title {
 	padding-top: 20px;
@@ -217,8 +228,12 @@ input[type=submit] {
 
 .main-inner {
 	position: relative;
-	margin-top: 40px;
-	background-color: #FF0000; /*product_list_background*/
+	margin-top: 20px;
+	background-color: #0071ff; /*product_list_background*/
+	box-sizing: content-box;
+	border-radius: 20px;
+	left: 250px;
+	margin-right: 270px;
 }
 
 
@@ -227,18 +242,21 @@ input[type=submit] {
 .product-list {
 	padding-bottom: 10px;
 	font-size: 0;
-	background-color: #FF0000; /*product_list_background*/
+	background-color: #0071ff; /*product_list_background*/
+	border-radius: 20px;
 }
 
 .product-item-solo {
 	position: relative;
-	width: 250px;
-	height: 400px;
-	margin-left: 40%;
+	width: 600px;
+	height: 550px;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 10%;
-	font-size: 1rem;
-	color: #20ffa9;
+	font-size: 1.5rem;
+	color: #0e148a; /*product_item_text*/
 	background-color: #FFFFFF; /*product_item_background*/
+	border-radius: 20px;
 }
 
 .product-item {
@@ -251,6 +269,7 @@ input[type=submit] {
 	font-size: 1rem;
 	color: #0e148a; /*product_item_text*/
 	background-color: #FFFFFF; /*product_item_background*/
+	border-radius: 20px;
 }
 
 .product-item-inner {
@@ -258,7 +277,7 @@ input[type=submit] {
 }
 
 .product-item:hover {
-	background-color: #202020; /*product_item_background_hover*/
+	background-color: #ff8e00; /*product_item_background_hover*/
 }
 
 .product-item-image {
@@ -281,21 +300,26 @@ input[type=submit] {
 	border: solid;
 }
 
+.product-item-title-solo {
+	horizontal-align: left;
+	vertical-align: top;
+	margin-left: 10%;
+	margin-top: 5px;
+	font-size: 1em;
+	text-align: center;
+	border: solid;
+}
+
 .product-item-infos {
 	horizontal-align: left;
 	vertical-align: top;
 	margin-left: 55px;
 }
 
-.product-item-lower {
-	display: none;
-	margin-top: 10px;
-	background-color: white;
-}
-
-.product-item-short-description {
-	margin-bottom: 10px;
-	margin-left: 55px;
+.product-item-infos-solo {
+	horizontal-align: left;
+	vertical-align: top;
+	margin-left: 100px;	
 }
 
 .product-item:before {
@@ -319,30 +343,3 @@ input[type=submit] {
 .footer-inner {
 	font-size: 2em;
 }
-
-/* media queries */
-
-@media only screen and (min-width:1366px) {
-	.wrapper {
-		width: 1280px;
-	}
-	.product-item {
-		width: 236px;
-	}
-	.product-item:nth-child(4n+1) {
-		margin-left: 20px;
-	}
-	.product-item:nth-child(5n+1) {
-		margin-left: 0;
-	}
-}
-
-@media only screen and (max-width:1280px) {}
-
-@media only screen and (max-width:1024px) {}
-
-@media only screen and (max-width:768px) {}
-
-@media only screen and (max-width:480px) {}
-
-@media only screen and (max-width:320px) {}

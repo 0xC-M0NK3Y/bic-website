@@ -4,38 +4,7 @@
 	<div class="main-inner wrapper">
 		<ul class="product-list ul-reset">
 			<?php
-			$first = 1;
-			$query = "SELECT * FROM pen";
 
-			if (isset($_GET['top'])) {
-				$query = addToQuery($query, $_GET['top'], $first, "top");
-				$first = 0;	}
-			if (isset($_GET['ring_color'])) {
-				$query = addToQuery($query, $_GET['ring_color'], $first, "ring_color");
-				$first = 0; }
-			if (isset($_GET['tube_color'])) {
-				$query = addToQuery($query, $_GET['tube_color'], $first, "tube_color");
-				$first = 0; }
-			if (isset($_GET['family'])) {
-				$query = addToQuery($query, $_GET['family'], $first, "family");
-				$first = 0; }
-			if (isset($_GET['ink_colors'])) {
-				$query = addToQuery($query, $_GET['ink_colors'], $first, "ink_colors");
-				$first = 0;	}
-			if (isset($_GET['rarity'])) {
-				$query = addToQuery($query, $_GET['rarity'], $first, "rarity");
-				$first = 0;	}
-
-			if (isset($_GET['search'])) {
-				$search_value = $_GET['search'];
-				if ($first == 1) {
-					$query .= " WHERE name LIKE '%$search_value%'";
-				} else {
-					$query .= " AND name LIKE '%$search_value%'";
-				}
-			}
-			$result = $mysqli->query($query);
-			$mysqli->close();
 			while($rows = $result->fetch_assoc()) {
 				$id = $rows['id'];
 				$img = $rows['image'];
@@ -46,13 +15,14 @@
 				} else {
 					$price .= " €";
 				}
+				$price = str_replace('.', ',', $price)
 			?>
 			<a href="<?php echo 'bic/bic_' . $id . '.html' ?>">
 			<li class="product-item ib">
 				<section class="product-item-inner">
 					<div class="product-item-image">
 					<?php
-						echo "<img height='350' src='$img'></img>";
+						echo "<img src='$img' style='border-radius: 20px;'></img>";
 					?>
 					</div>
 					<!-- /.product-item-image -->
@@ -88,14 +58,37 @@
 <!-- /.main -->
 
 <footer class="footer">
-	<div class="footer-inner wrapper">
-		Made by <a href="https://github.com/0xC-M0NK3Y">0xC-M0NK3Y</a>.
+	<div class="footer-inner">
+		Bicophile.fr, bic.
 	</div>
 	<!-- /.footer-inner wrapper -->
 </footer>
 <!-- /.footer -->
 <script>
 <!-- events listenners -->
+
+window.addEventListener("beforeunload", () => {
+	localStorage.setItem("scrollPositon", document.querySelector(".filter_menu").scrollTop);
+});
+
+window.addEventListener("load", (event) => {
+	var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
+
+	document.querySelector(".filter_menu").scrollTop = localStorage.getItem("scrollPositon") || 0;
+
+	for (var checkbox of markedCheckbox) {
+		var name = checkbox.name;
+
+		name = name.substr(0, name.length-2);
+		name += "_span";
+		var tmp = document.getElementById(name).innerHTML;
+
+		if (tmp.includes("✅") === false) {
+			tmp += " ✅";
+			document.getElementById(name).innerHTML = tmp;
+		}
+	}
+});
 
 function toggleValues(getVar, filterId) {
 	var val = document.getElementById(getVar);
