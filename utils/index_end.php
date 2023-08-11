@@ -22,7 +22,7 @@
 				<section class="product-item-inner">
 					<div class="product-item-image">
 					<?php
-						echo "<img src='$img' style='border-radius: 20px;'></img>";
+						echo "<img src='$img' style='border-radius: 15px;'></img>";
 					?>
 					</div>
 					<!-- /.product-item-image -->
@@ -59,7 +59,8 @@
 
 <footer class="footer">
 	<div class="footer-inner">
-		Bicophile.fr, bic.
+		Bicophile.fr, bic.<br>
+		<p style="font-size: 0.5em; text-align: center;">Pour les modèles spéciaux, les prix affichés sont les prix en boutique hors frais de port. Pour les modèles vendus en supermarché, le prix est indicatif du blister individuel et peut fortement varier dès lors que le stylo fait partie d'un blister mélangé</p>
 	</div>
 	<!-- /.footer-inner wrapper -->
 </footer>
@@ -67,11 +68,7 @@
 <script>
 <!-- events listenners -->
 
-window.addEventListener("beforeunload", () => {
-	localStorage.setItem("scrollPositon", document.querySelector(".filter_menu").scrollTop);
-});
-
-window.addEventListener("load", (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
 	var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
 
 	document.querySelector(".filter_menu").scrollTop = localStorage.getItem("scrollPositon") || 0;
@@ -102,6 +99,7 @@ function toggleValues(getVar, filterId) {
 }
 
 function submitReq() {
+	localStorage.setItem("scrollPositon", document.querySelector(".filter_menu").scrollTop);
 	document.querySelector("form").submit();
 }
 </script>

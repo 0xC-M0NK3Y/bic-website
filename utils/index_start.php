@@ -69,6 +69,9 @@ if (isset($_GET['ring_color'])) {
 if (isset($_GET['tube_color'])) {
 	$query = addToQuery($query, $_GET['tube_color'], $first, "tube_color", 1);
 	$first = 0; }
+if (isset($_GET['tube_finish'])) {
+	$query = addToQuery($query, $_GET['tube_finish'], $first, "tube_finish", 1);
+	$first = 0; }
 if (isset($_GET['family'])) {
 	$query = addToQuery($query, $_GET['family'], $first, "family", 1);
 	$first = 0; }
@@ -126,6 +129,6 @@ $DISPLAY_TYPES=["none;", "block;"];
 	<div class="filter_menu">
 		<form action="" method="GET">
 			<div class="search_bar" placeholder="search">
-				<input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; }?>" class="search_input" placeholder="Recherche" style="height: 28px; border-radius: 5px; color: #000000;">
+				<input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; }?>" class="search_input" placeholder="Recherche" style="height: 28px; border-radius: 5px; color: #000000; cursor: text; padding: 4px;">
 				<input type="submit" value="Rechercher" style="width: 105px; color: black; height: 28px; border-radius: 8px;" />
 			</div><br>

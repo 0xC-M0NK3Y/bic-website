@@ -29,5 +29,5 @@ sed -i "s/color: #[[:alnum:]]*; \/\*title_color\*\//color: $title_color; \/\*tit
 sed -i "s/color: #[[:alnum:]]*; \/\*product_item_text\*\//color: $product_item_text_color; \/\*product_item_text\*\//g" /home/gillian/bic-website/index.css
 #sed -i "s/color: #[[:alnum:]]*; \/\*filter_menu_text\*\//color: $filter_text_color; \/\*filter_menu_text\*\//g" /home/gillian/bic-website/index.css
 
-rm -rf /home/groume/index.css
-cp /home/gillian/bic-website/index.css /home/groume
+rm -rf /var/www/bicophile/index.css
+cp /home/gillian/bic-website/index.css /var/www/bicophile

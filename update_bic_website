@@ -14,19 +14,19 @@ mariadb --user=bic_user --password=bic_user --host=localhost < /home/gillian/bic
 mariadb --user=bic_user --password=bic_user --host=localhost --database=bic_db < out.sql
 rm -rf out.sql
 echo "Creation du site"
-rm -rf /home/groume/images
-cp -r images /home/groume/
+rm -rf /var/www/bicophile/images
+cp -r images /var/www/bicophile/
 rm -rf images
 python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php yes
-rm -rf /home/groume/index.php
-cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > /home/groume/index.php
+rm -rf /var/www/bicophile/index.php
+cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > /var/www/bicophile/index.php
 rm -rf filters.php
 echo "Creation des pages individuelles"
 python3 /home/gillian/bic-website/utils/scripts/create_html_bic_page.py
-rm -rf /home/groume/bic
-cp -r bic /home/groume
+rm -rf /var/www/bicophile/bic
+cp -r bic /var/www/bicophile/
 rm -rf bic
 /home/gillian/bic-website/update_colors
-rm -rf /home/groume/index.js
-cp /home/gillian/bic-website/index.js /home/groume
+rm -rf /var/www/bicophile/index.js
+cp /home/gillian/bic-website/index.js /var/www/bicophile/
 echo "Voilà le site devrait être actualisé correctement si tu vois pas d'erreurs"
