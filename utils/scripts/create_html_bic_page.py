@@ -8,11 +8,11 @@ HTML_TEMPLATE = \
 '	<meta charset="UTF-8">\n' \
 '	<link rel="stylesheet" href="../index.css">\n' \
 '</head>\n' \
-'<body>\n' \
+'<body style="height: auto;">\n' \
 '	<div class="product-item-solo">\n' \
 '		<section class="product-item-inner">\n' \
 '			<div class="product-item-image">\n' \
-'				<img src="%s" style="border-radius: 20px;"></img>\n' \
+'				<img src="%s" style="border-radius: 15px;"></img>\n' \
 '			</div>\n' \
 '			<!-- /.product-item-image -->\n' \
 '			<h1 class="product-item-title-solo">\n' \

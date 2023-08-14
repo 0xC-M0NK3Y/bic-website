@@ -7,7 +7,7 @@ import cv2
 MAX_HEIGHT = 350
 MAX_WIDTH = 55
 
-def rotate_images(path):
+def fix_images(path):
 	for filename in os.listdir(path):
 		f = os.path.join(path, filename)
 		if os.path.isfile(f):
@@ -17,7 +17,9 @@ def rotate_images(path):
 				h, w, _ = img.shape
 				coef = min(MAX_HEIGHT/h, MAX_WIDTH/w)
 				img2 = cv2.resize(img, (int(w*coef), int(h*coef)))
-				cv2.imwrite(f, img2)
+				tmp = f[:-3] + "jpg"
+				cv2.imwrite(tmp, img2, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+				os.remove(f)
 			except:
 				print(f'Error rotating and resizing {f}')
 
@@ -52,6 +54,7 @@ def main():
 			image = image_loader.get(f'D{row+1}')
 			path = f'images/bic_{row-2}.png'
 			image.save(path)
+			path = path[:-3] + 'jpg'
 		except:
 			print(f'Erreur avec l\'image ligne {row+1} (la ligne sera pas prise en compte)', file=sys.stderr)
 			continue
@@ -68,7 +71,7 @@ def main():
 				else:
 					print(col[row].value, end='|', file=out)
 		print('', file=out)
-	rotate_images('images')
+	fix_images('images')
 
 
 if __name__ == '__main__':

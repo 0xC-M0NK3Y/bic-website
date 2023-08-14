@@ -60,7 +60,8 @@
 <footer class="footer">
 	<div class="footer-inner">
 		Bicophile.fr, bic.<br>
-		<p style="font-size: 0.5em; text-align: center;">Pour les modèles spéciaux, les prix affichés sont les prix en boutique hors frais de port. Pour les modèles vendus en supermarché, le prix est indicatif du blister individuel et peut fortement varier dès lors que le stylo fait partie d'un blister mélangé</p>
+		<p style="font-size: 0.5em; text-align: center; margin-right: 150px;">Pour les modèles spéciaux, les prix affichés sont les prix en boutique hors frais de port.</p>
+		<p style="font-size: 0.5em; text-align: center; margin-right: 150px;">Pour les modèles vendus en supermarché, le prix est indicatif du blister individuel et peut fortement varier dès lors que le stylo fait partie d'un blister mélangé</p>
 	</div>
 	<!-- /.footer-inner wrapper -->
 </footer>
@@ -77,13 +78,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 		var name = checkbox.name;
 
 		name = name.substr(0, name.length-2);
-		name += "_span";
-		var tmp = document.getElementById(name).innerHTML;
-
-		if (tmp.includes("✅") === false) {
-			tmp += " ✅";
-			document.getElementById(name).innerHTML = tmp;
-		}
+		name += "_check";
+		document.getElementById(name).checked = true;
 	}
 });
 
@@ -96,6 +92,22 @@ function toggleValues(getVar, filterId) {
 		val.value = "0";
 		document.getElementById(filterId).style = "display: none;";
 	}
+}
+
+function removeChecks(checkboxId, name) {
+	if (document.getElementById(checkboxId).checked === true) {
+		document.getElementById(checkboxId).checked = false;
+		return;
+	}
+	var checkboxes = document.getElementsByName(name);
+
+	for (var checkbox of checkboxes) {
+		checkbox.checked = false;
+	}
+	var tmp = name.substr(name, name.length-2);
+
+	toggleValues(tmp+"Show", tmp+"Filter");
+	submitReq();
 }
 
 function submitReq() {

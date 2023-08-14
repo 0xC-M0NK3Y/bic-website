@@ -24,6 +24,7 @@ body {
 	line-height: 1.5;
 	font-family: Helvectica, Arial, sans-serif;
 	color: #FF8e00; /*title_color*/
+	height: auto;
 }
 
 
@@ -304,6 +305,7 @@ input[type=submit] {
 	font-size: 1em;
 	text-align: center;
 	border: solid;
+	border-radius: 5px;
 }
 
 .product-item-title-solo {
@@ -314,6 +316,7 @@ input[type=submit] {
 	font-size: 1em;
 	text-align: center;
 	border: solid;
+	border-radius: 5px;
 }
 
 .product-item-infos {

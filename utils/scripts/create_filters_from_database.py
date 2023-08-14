@@ -58,8 +58,12 @@ def make_filter(data, field, index, filter_name, auto):
 	if field != "family":
 		vals.sort()
 	filter_values = make_filters_values(vals, field)
-	ret = FILTER_MENU_BASE % (field, field, field+"_span", filter_name, field, field, field, \
-								field, field, field, field, filter_values)
+	ret = FILTER_MENU_BASE % (field,field,\
+				filter_name,\
+				field,field,field,\
+				field,field,field,field,\
+				field,field,field,\
+				filter_values)
 	return ret
 
 def make_ink_colors_filter():
@@ -69,8 +73,8 @@ def make_ink_colors_filter():
 	filter_values += FILTER_VALUE_BASE % ("sun", "ink_colors", "rose, violet, orange, jaune", "ink_colors", "rose, violet, orange, jaune", "ink_colors")
 	filter_values += FILTER_VALUE_BASE % ("autres", "ink_colors", "other_ink_colors", "ink_colors", "other_ink_colors", "ink_colors")
 
-	ret = FILTER_MENU_BASE % ("ink_colors", "ink_colors", "ink_colors_span", "Encres", "ink_colors", "ink_colors", "ink_colors", \
-								"ink_colors", "ink_colors", "ink_colors", "ink_colors", filter_values)
+	ret = FILTER_MENU_BASE % ("ink_colors", "ink_colors", "Encres", "ink_colors", "ink_colors", "ink_colors", \
+				"ink_colors", "ink_colors", "ink_colors", "ink_colors", "ink_colors", "ink_colors", "ink_colors", filter_values)
 	return ret
 
 def make_tag_filter():
@@ -85,8 +89,8 @@ def make_tag_filter():
 	filter_values += FILTER_VALUE_BASE % ("sport", "tag", "spo", "tag", "spo", "tag")
 	filter_values += FILTER_VALUE_BASE % ("ville ou région", "tag", "vil", "tag", "vil", "tag")
 
-	ret = FILTER_MENU_BASE % ("tag", "tag", "tag_span", "Style", "tag", "tag", "tag", \
-								"tag", "tag", "tag", "tag", filter_values)
+	ret = FILTER_MENU_BASE % ("tag", "tag", "Style", "tag", "tag", "tag", \
+				"tag", "tag", "tag", "tag", "tag", "tag", "tag", filter_values)
 	return ret
 
 

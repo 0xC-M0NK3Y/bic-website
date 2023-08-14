@@ -2,7 +2,8 @@
 FILTER_MENU_BASE = \
 '			<div class="filter checkboxes-container">\n' \
 '				<div class="filter_title" onclick="toggleValues(\'%sShow\',\'%sFilter\')">\n' \
-'					<span class="filter_name" id="%s">%s</span>\n' \
+'					<span class="filter_name">%s</span>\n' \
+'					<input type="checkbox" id="%s_check" onchange="removeChecks(\'%s_check\', \'%s[]\')">\n' \
 '					<input type="hidden" name="%s_show" value="<?php if(!isset($_GET[\'%s_show\'])){echo \'0\';}else{echo $_GET[\'%s_show\'];}?>" id="%sShow">\n' \
 '				</div>\n' \
 '				<div class="filters_values" style="display: <?php if(isset($_GET[\'%s_show\'])){echo $DISPLAY_TYPES[intval($_GET[\'%s_show\'],10)];}else{echo \'none;\';} ?>" id="%sFilter">\n' \
