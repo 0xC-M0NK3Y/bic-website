@@ -11,5 +11,6 @@ Take a look at update_bic_website, it does basically:
 + Create database with this .sql  
 + Create the filters with the database  
 + Create the index.php  
-+ Create the individual pages with the database  
-+ mini script to update colors from config file (not really used or usefull)
++ Create the individual pages with the database
+
+It has now accounts, you can select the bic you have and you want, you got 2 lists.
