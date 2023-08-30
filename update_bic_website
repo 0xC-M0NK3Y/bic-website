@@ -10,23 +10,22 @@ echo "Creation de la base de donnée"
 python3 /home/gillian/bic-website/utils/scripts/create_csv_from_excel.py $1 out.csv
 python3 /home/gillian/bic-website/utils/scripts/create_sql_from_csv.py out.csv out.sql
 rm -rf out.csv
-mariadb --user=bic_user --password=bic_user --host=localhost < /home/gillian/bic-website/utils/bic.sql
+mariadb --user=bic_user --password=bic_user --host=localhost < /home/gillian/bic-website/sql/bic.sql
 mariadb --user=bic_user --password=bic_user --host=localhost --database=bic_db < out.sql
 rm -rf out.sql
+
 echo "Creation du site"
-rm -rf /var/www/bicophile/images
+python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php yes
+cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > index.php
+rm -rf filters.php
+python3 /home/gillian/bic-website/utils/scripts/create_html_bic_page.py
+
+rm -rf /var/www/bicophile/*
+cp -r /home/gillian/bic-website/pages/* /var/www/bicophile
+cp index.php /var/www/bicophile/
+rm index.php
 cp -r images /var/www/bicophile/
 rm -rf images
-python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php yes
-rm -rf /var/www/bicophile/index.php
-cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > /var/www/bicophile/index.php
-rm -rf filters.php
-echo "Creation des pages individuelles"
-python3 /home/gillian/bic-website/utils/scripts/create_html_bic_page.py
-rm -rf /var/www/bicophile/bic
 cp -r bic /var/www/bicophile/
 rm -rf bic
-/home/gillian/bic-website/update_colors
-rm -rf /var/www/bicophile/index.js
-cp /home/gillian/bic-website/index.js /var/www/bicophile/
 echo "Voilà le site devrait être actualisé correctement si tu vois pas d'erreurs"

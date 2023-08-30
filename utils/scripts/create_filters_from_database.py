@@ -85,9 +85,11 @@ def make_tag_filter():
 	filter_values += FILTER_VALUE_BASE % ("fleurs", "tag", "fle", "tag", "fle", "tag")
 	filter_values += FILTER_VALUE_BASE % ("graphique", "tag", "gra", "tag", "gra", "tag")
 	filter_values += FILTER_VALUE_BASE % ("oeuvre d'art", "tag", "oeu", "tag", "oeu", "tag")
+	filter_values += FILTER_VALUE_BASE % ("photo", "tag", "pho", "tag", "pho", "tag")
 	filter_values += FILTER_VALUE_BASE % ("personnage", "tag", "per", "tag", "per", "tag")
 	filter_values += FILTER_VALUE_BASE % ("sport", "tag", "spo", "tag", "spo", "tag")
 	filter_values += FILTER_VALUE_BASE % ("ville ou région", "tag", "vil", "tag", "vil", "tag")
+	filter_values += FILTER_VALUE_BASE % ("logo", "tag", "log", "tag", "log", "tag")
 
 	ret = FILTER_MENU_BASE % ("tag", "tag", "Style", "tag", "tag", "tag", \
 				"tag", "tag", "tag", "tag", "tag", "tag", "tag", filter_values)

@@ -63,21 +63,21 @@ def sql_query(connection, query):
 
 def main():
 
-	db_conn = create_database_connection('localhost', 'bic_user', 'bic_user', 'bic_db')
+	db_conn = create_database_connection('localhost', 'dev_bic_user', 'dev_bic_user', 'dev_bic_db')
 	if db_conn == None:
 		return
-	number = int(sql_query(db_conn, 'SELECT COUNT(id) FROM `pen`;')[0][0])
+	ids = sql_query(db_conn, 'SELECT id FROM `pen`;')
 
 	os.mkdir("bic")
-	for i in range(number):
-		data = sql_query(db_conn, f'SELECT * FROM `pen` WHERE id={i+1};')
+	for i in range(len(ids)):
+		data = sql_query(db_conn, f'SELECT * FROM `pen` WHERE id={ids[i][0]};')
 		data = data[0]
-		out = open(f'bic/bic_{i+1}.html', 'w')
+		out = open(f'bic/bic_{data[13]}.html', 'w')
 		stars = ""
 		imgpath = "../" + data[3].decode()
 		for j in range(data[11]):
 			stars += "⭐"
-		comment = data[13]
+		comment = data[14]
 		if comment == "None":
 			comment = ""
 		price = str(data[10])
