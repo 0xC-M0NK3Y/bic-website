@@ -12,4 +12,3 @@ Take a look at update_bic_website, it does basically:
 + Create the filters with the database  
 + Create the index.php  
 + Create the individual pages with the database  
-+ mini script to update colors from config file (not really used or usefull)
