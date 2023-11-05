@@ -30,10 +30,19 @@ if ($account_id == "") {
 }
 
 if (!isset($_SESSION['logged_user'])) {
-	echo "WHAT THE FUCK ARE YOU TRYING DISGUSTING, GTFO";
+	echo "Connect bro";
 	die();
+} else {
+	$username = $_SESSION['logged_user'];
+	$check_query = "SELECT id FROM accounts WHERE username='" . $username ."'";
+	$check_result = $mysqli->query($check_query);
+	$check = $check_result->fetch_assoc();
+	$check_id = $check['id'];
+	if ($check_id != $account_id) {
+		echo "WHAT THE FUCK ARE YOU TRYING DISGUSTING, GTFO";
+		die();
+	}
 }
-
 
 if (isset($_POST['list'])) {
 	$list = $_POST['list'];

@@ -1,5 +1,5 @@
+		</div>
 		</form>
-	</div>
 </section>
 	<div class="main-inner wrapper" id="main-inner" style="<?php if ($log_err == 1 || $reg_err == 1){ echo 'opacity: 0.5;pointer-events: none;'; } ?>">
 		<ul class="product-list ul-reset" id="product_list">
@@ -14,8 +14,8 @@
 <footer class="footer">
 	<div class="footer-inner">
 		Bicophile.fr, bic.<br>
-		<p style="font-size: 0.5em; text-align: center; margin-right: 150px;">Pour les modèles spéciaux, les prix affichés sont les prix en boutique hors frais de port.</p>
-		<p style="font-size: 0.5em; text-align: center; margin-right: 150px;">Pour les modèles vendus en supermarché, le prix est indicatif du blister individuel et peut fortement varier dès lors que le stylo fait partie d'un blister mélangé</p>
+		<p style="font-size: 0.5em; text-align: center; margin-right: 150px;">Pour les modèles spéciaux, les prix affichés sont les prix en boutique <u>hors frais de port</u>. Il est normal de les retrouver plus chers à la revente.</p>
+		<p style="font-size: 0.5em; text-align: center; margin-right: 150px;">Pour les modèles vendus en supermarché, le prix est indicatif du blister individuel et peut fortement varier dès lors que le stylo fait partie d'un blister mélangé.</p>
 	</div>
 	<!-- /.footer-inner wrapper -->
 </footer>
@@ -88,9 +88,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
 	for (var checkbox of markedCheckbox) {
 		var name = checkbox.name;
 
-		name = name.substr(0, name.length-2);
-		name += "_check";
-		document.getElementById(name).checked = true;
+		if (name.includes('[]')) {
+			name = name.substr(0, name.length-2);
+			name += "_check";
+			document.getElementById(name).checked = true;
+		}
 	}
 });
 
@@ -134,7 +136,7 @@ function changeList(list, num, isCo) {
 	event.stopPropagation();
 	event.preventDefault();
 	if (isCo === 0 && first === 1) {
-		alert("Veuillez vous connecter utiliser cette fonctionnalité.");
+		alert("Veuillez vous connecter pour utiliser cette fonctionnalité.");
 		first = 0;
 	}
 	list_id = 'list_name'+num;

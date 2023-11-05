@@ -169,6 +169,7 @@ if (isset($_GET['tag'])) {
 	$first = 0;	}
 if (isset($_GET['search'])) {
 	$search_value = $mysqli->real_escape_string($_GET['search']);
+	$search_value = trim($search_value);
 	if ($first == 1) {
 		$query .= " WHERE name LIKE '%$search_value%'";
 	} else {
@@ -177,10 +178,10 @@ if (isset($_GET['search'])) {
 }
 if ($account_id != "") {
 	if ($wish == 1) {
-		$query .= " AND wish_list.account_id=" . $account_id . " ORDER BY pos";
+		$query .= " AND wish_list.account_id=" . $account_id;
 	}
 	if ($got == 1) {
-		$query .= " AND got_list.account_id=" . $account_id . " ORDER BY pos";
+		$query .= " AND got_list.account_id=" . $account_id;
 	}
 	if ($not_wish == 1) {
 		$query .= " AND id NOT IN (SELECT pen_id FROM wish_list WHERE account_id=" . $account_id . ")";
@@ -189,6 +190,7 @@ if ($account_id != "") {
 		$query .= " AND id NOT IN (SELECT pen_id FROM got_list WHERE account_id=" . $account_id . ")";
 	}
 }
+$query .= " ORDER BY pos";
 if (isset($_GET['page'])) {
 	$page = $_GET['page'];
 	$page = intval($page, 10);

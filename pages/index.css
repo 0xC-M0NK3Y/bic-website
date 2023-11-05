@@ -87,11 +87,11 @@ input {
 	font-size: inherit;
 	color: inherit;
 	border-radius: 5px;
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 input[type=submit] {
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 input[type=text] {
@@ -104,29 +104,30 @@ input[type=password] {
 }
 
 button[type=submit] {
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 .login_button {
 	position: absolute;
 	right: 10px;
 	top: 10px;
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 .register_button {
 	position: absolute;
 	right: 180px;
 	top: 12px;
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 .total_count {
-	left: 50px;
+	left: 25px;
 	top: 50px;
 	position: fixed;
 	font-size: 1.2em;
 	font-weight: bolder;
+	cursor: url(../assets/bic_orange.png), default;
 }
 
 .register_form {
@@ -172,7 +173,7 @@ button[type=submit] {
 	padding-left: 10px;
 	margin-top: 3px;
 	border-radius: 4px;
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 .filter_value {
@@ -181,12 +182,12 @@ button[type=submit] {
 	margin-bottom: 1px;
 	padding-left: 10px;
 	border-radius: 5px;
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 .filter_attribute {
 	display: block;
-	cursor: pointer;
+	cursor: url(../assets/bic_bleu.png), pointer;
 }
 
 /* clearfix */
@@ -287,8 +288,8 @@ button[type=submit] {
 	background-color: #0071ff; /*product_list_background*/
 	box-sizing: content-box;
 	border-radius: 20px;
-	left: 250px;
-	margin-right: 270px;
+	left: 225px;
+	margin-right: 235px;
 }
 
 
@@ -325,6 +326,7 @@ button[type=submit] {
 	color: #0e148a; /*product_item_text*/
 	background-color: #FFFFFF; /*product_item_background*/
 	border-radius: 20px;
+	cursor: url(./assets/bic_bleu.png), pointer;
 }
 
 .product-item-inner {

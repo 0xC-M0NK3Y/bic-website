@@ -36,8 +36,7 @@ def main():
 	out = open(sys.argv[2], 'w')
 
 	for row in range(2, sheet.max_row):
-		print(f"Ligne : {row+1} : {sheet[row+1][2].value}", end='')
-		print(' '*100+'\r', end='')
+		print(f"Ligne : {row+1} : {sheet[row+1][2].value}", flush=True)
 		# detect end with empty colors cell
 		if sheet[row+1][4].value == None:
 			print(f'Fin du fichier excel détectée ligne {row+1}.', file=sys.stderr)
@@ -60,6 +59,10 @@ def main():
 			if col[0].value == 'image':
 				print(path, end='|', file=out)
 			else:
+				if col[0].value == 'latitude' and col[row].value == None:
+					continue
+				if col[0].value == 'longitude' and col[row].value == None:
+					continue
 				if type(col[row].value) == str:
 					print(col[row].value.strip(), end='|', file=out)
 				else:

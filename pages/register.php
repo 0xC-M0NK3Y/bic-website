@@ -63,7 +63,7 @@ $query .= "'" . $ip  . "')";
 $result = $mysqli->query($query);
 $mysqli->close();
 
-header("Location: index.php");
+header("Location: index.php?register_done=1");
 die();
 ?>
 

@@ -1,16 +1,13 @@
-import mysql.connector
+qq^$
+qqqqq
+)=port mysql.connector
 from mysql.connector import Error
 import os
 
 HTML_TEMPLATE = \
-'<html lang="en" style="cursor: url(../assets/bic_orange.png),auto;" >\n' \
+'<html lang="en">\n' \
 '<head>\n' \
 '	<meta charset="UTF-8">\n' \
-'	<title>BIC COLLECTION</title>\n' \
-'	<link rel="icon" type="image/png" href="../favicon.png" >\n' \
-'	<link rel="apple-touch-icon" type="image/png" href="../favicon.png" >\n' \
-'	<link rel="apple-touch-icon-precomposed" type="image/png" href="../favicon.png" >\n' \
-'	<link rel="shortcut icon" type="image/png" href="../favicon.png" >\n' \
 '	<link rel="stylesheet" href="../index.css">\n' \
 '</head>\n' \
 '<body style="height: auto;">\n' \
@@ -68,26 +65,31 @@ def sql_query(connection, query):
 
 def main():
 
-	db_conn = create_database_connection('localhost', 'bic_user', 'bic_user', 'bic_db')
+	db_conn = create_database_connection('localhost', 'dev_bic_user', 'dev_bic_user', 'dev_bic_db')
 	if db_conn == None:
 		return
+	#number = int(sql_query(db_conn, 'SELECT COUNT(id) FROM `pen`;')[0][0])
 	ids = sql_query(db_conn, 'SELECT id FROM `pen`;')
+	print(ids)
+	exit()
 
 	os.mkdir("bic")
-	for i in range(len(ids)):
-		data = sql_query(db_conn, f'SELECT * FROM `pen` WHERE id={ids[i][0]};')
+	for i in range(number):
+		data = sql_query(db_conn, f'SELECT * FROM `pen` WHERE id={i+1};')
 		data = data[0]
-		out = open(f'bic/bic_{data[13]}.html', 'w')
+		print(data)
+		exit()
+		out = open(f'bic/bic_{data[14]}.html', 'w')
 		stars = ""
 		imgpath = "../" + data[3].decode()
 		for j in range(data[11]):
 			stars += "⭐"
-		comment = data[14]
+		comment = data[13]
 		if comment == "None":
 			comment = ""
 		price = str(data[10])
 		if price == '0.0':
-			price = 'Indéterminé'
+			price = 'Indeterminé'
 		else:
 			price += " €"
 		price = price.replace('.', ',')

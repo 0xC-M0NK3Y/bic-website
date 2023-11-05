@@ -6,7 +6,7 @@ then
 	exit 1
 fi
 
-echo "Creation de la base de donnée"
+echo "Création de la base de données"
 python3 /home/gillian/bic-website/utils/scripts/create_csv_from_excel.py $1 out.csv
 python3 /home/gillian/bic-website/utils/scripts/create_sql_from_csv.py out.csv out.sql
 rm -rf out.csv
@@ -14,7 +14,7 @@ mariadb --user=bic_user --password=bic_user --host=localhost < /home/gillian/bic
 mariadb --user=bic_user --password=bic_user --host=localhost --database=bic_db < out.sql
 rm -rf out.sql
 
-echo "Creation du site"
+echo "Création du site"
 python3 /home/gillian/bic-website/utils/scripts/create_filters_from_database.py filters.php yes
 cat /home/gillian/bic-website/utils/index_start.php filters.php /home/gillian/bic-website/utils/index_end.php > index.php
 rm -rf filters.php

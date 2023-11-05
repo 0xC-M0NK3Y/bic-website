@@ -22,18 +22,26 @@ def main():
 
 	for i in range(len(buf)):
 		line = buf[i].split('|')
-		if len(line) != 15:
+		if len(line) < 15:
 			print(f'Bad line at {i+1} : len = {len(line)}', file=sys.stderr)
 			continue
 		if (line[9] == 'None'):
 			line[9] = '0'
 		escape_chars(line)
-		print("INSERT INTO `pen`(family,name,image,tube_color,tube_finish, " \
+		if len(line) == 15:
+			print("INSERT INTO `pen`(family,name,image,tube_color,tube_finish, " \
 									"ring_color,top,ink_colors,thickness,price,rarity,tag,comments,id)" \
 				" VALUES " \
 				f"('{line[0]}' , '{line[1]}' , '{line[2]}' , '{line[3]}' , '{line[4]}' , " \
 				f"'{line[5]}' , '{line[6]}' , '{line[7]}' , '{line[8]}' , '{line[9]}' , '{line[10]}' ," \
 				f" '{line[11]}' , '{line[12]}', '{line[13]}');", file=out)
+		else:
+			print("INSERT INTO `pen`(family,name,image,tube_color,tube_finish, " \
+									"ring_color,top,ink_colors,thickness,price,rarity,tag,comments,id,latitude,longitude)" \
+				" VALUES " \
+				f"('{line[0]}' , '{line[1]}' , '{line[2]}' , '{line[3]}' , '{line[4]}' , " \
+				f"'{line[5]}' , '{line[6]}' , '{line[7]}' , '{line[8]}' , '{line[9]}' , '{line[10]}' ," \
+				f" '{line[11]}' , '{line[12]}', '{line[13]}', '{line[14]}', '{line[15]}');", file=out)
 
 
 if __name__ == '__main__':
