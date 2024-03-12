@@ -12,7 +12,7 @@ FILTER_MENU_BASE = \
 '			</div>\n'
 
 FILTER_VALUE_BASE = \
-'					<label class="filter_value">\n' \
+'					<label class="filter_value" id="%s_%s">\n' \
 '						<label class="filter_attribute">\n' \
 '							<span class="filter_label">%s</span>\n' \
 '							<input type="checkbox" name="%s[]" value="%s" onchange="submitReq()" <?php if(isset($_GET[\'%s\'])&&in_array(\'%s\',$_GET[\'%s\'])){echo \'checked="checked"\';} ?>>\n' \

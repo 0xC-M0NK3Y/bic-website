@@ -143,4 +143,5 @@ $DISPLAY_TYPES=["none;", "block;"];
 				<input type="submit" value="Rechercher" style="width: 105px; color: black; height: 28px; border-radius: 8px; position: fixed; left: 30px; top: 250px"" />
 			</div>
 		<div class="filter_menu" style="position: fixed; left: 15px; top: 290px">
+		<input type="hidden" name="refresh_count" value="1">
 

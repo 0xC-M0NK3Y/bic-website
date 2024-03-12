@@ -94,6 +94,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
 			document.getElementById(name).checked = true;
 		}
 	}
+	var noResultDiv = document.querySelectorAll('.count_result');
+
+	for (var div of noResultDiv) {
+		document.getElementById(div.innerHTML.replace("'", "_")).style = 'color: darkcyan;';
+	}
 });
 
 function toggleValues(getVar, showId) {

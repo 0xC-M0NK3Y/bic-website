@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+from creds import DB_USER, DB_PASS, DB_NAME, DB_SERVER
 import os
 
 HTML_TEMPLATE = \
@@ -68,7 +69,7 @@ def sql_query(connection, query):
 
 def main():
 
-	db_conn = create_database_connection('localhost', 'bic_user', 'bic_user', 'bic_db')
+	db_conn = create_database_connection(DB_SERVER, DB_USER, DB_PASS, DB_NAME)
 	if db_conn == None:
 		return
 	ids = sql_query(db_conn, 'SELECT id FROM `pen`;')

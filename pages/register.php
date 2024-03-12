@@ -3,10 +3,7 @@
 /* start session */
 session_start();
 
-$username = 'bic_user';
-$password = 'bic_user';
-$database = 'bic_db';
-$servername='localhost';
+require "creds.php";
 
 if (!isset($_POST['register_password']) || !isset($_POST['register_password_repeat']) || !isset($_POST['register_username']) || !isset($_POST['register_email'])) {
 	header("Location: index.php");

@@ -3,10 +3,7 @@
 /* start session */
 session_start();
 
-$username = 'bic_user';
-$password = 'bic_user';
-$database = 'bic_db';
-$servername='localhost';
+require "creds.php";
 
 $mysqli = new mysqli($servername, $username, $password, $database);
 

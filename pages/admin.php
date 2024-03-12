@@ -3,11 +3,7 @@
 
 session_start();
 
-$username = 'bic_user';
-$password = 'bic_user';
-$database = 'bic_db';
-$servername='localhost';
-
+require "creds.php";
 
 if (isset($_GET['admin_pass']) && $_GET['admin_pass'] == 'azertyuiop') {
 	if (isset($_SESSION['logged_user']) && ($_SESSION['logged_user'] == 'Gillian' || $_SESSION['logged_user'] == 'Tim')) {

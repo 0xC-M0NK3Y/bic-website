@@ -1,5 +1,3 @@
-USE bic_db;
-
 DROP TABLE pen;
 
 CREATE TABLE `pen` (
