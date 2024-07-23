@@ -26,6 +26,7 @@ HTML_TEMPLATE = \
 '			</h1>\n' \
 '			<!-- /.product-item-title -->\n' \
 '			<div class="product-item-infos-solo">\n' \
+'				Famille: %s<br>\n' \
 '				Tube: %s<br>\n' \
 '				Finition du tube: %s<br>\n' \
 '				Bague: %s<br>\n' \
@@ -92,7 +93,7 @@ def main():
 		else:
 			price += " €"
 		price = price.replace('.', ',')
-		out.write(HTML_TEMPLATE % (imgpath, data[2], data[4], data[5], data[6], data[7], data[8], data[9], price, stars, comment))
+		out.write(HTML_TEMPLATE % (imgpath, data[2], data[1], data[4], data[5], data[6], data[7], data[8], data[9], price, stars, comment))
 		out.close()
 
 

@@ -25,15 +25,13 @@ function isInList($val, $list, $list_len) {
 }
 
 function addToQuery2($mysqli, $query, $value, $field, $match_strict) {
-	echo "query=$query\n";
-	echo "try value $field - $value\n";
+	$field = " " . $field . " "; 
 	$value = $mysqli->real_escape_string($value);
 	$or_field = "/ OR\s*$field/";
 	if (preg_match($or_field, $query, $dummy)) {
 		if ($match_strict == 1) {
 			$reg = "/ \s*OR\s*$field=\'.*?\'\s*\)/";
 			preg_match($reg, $query, $cut);
-			echo "cut = $cut[0]<br>";
 			$tmp = explode($cut[0], $query);
 			if ($value == 'other_ink_colors') {
 				$query = "$tmp[0] OR (ink_colors!='rouge, noir, vert, bleu' AND ink_colors!='rose, violet, vert citron, turquoise' AND ink_colors!='rose, violet, orange, jaune') $cut[0] $tmp[1]";
@@ -43,7 +41,6 @@ function addToQuery2($mysqli, $query, $value, $field, $match_strict) {
 		} else {
 			$reg = "/ \s*OR\s*$field\s*LIKE\s*\'.*?\'\s*\)/";
 			preg_match($reg, $query, $cut);
-			echo "cut = $cut[0]<br>";
 			$tmp = explode($cut[0], $query);
 			$query = "$tmp[0] OR $field LIKE '%$value%' $cut[0] $tmp[1]";
 		}
